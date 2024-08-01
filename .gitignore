@@ -1,0 +1,4 @@
+bot_files/src/.env
+bot_files/package-lock.json
+bot_files/node_modules
+bot_files/dist
