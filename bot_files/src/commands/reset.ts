@@ -2,12 +2,13 @@ import axios from "axios";
 import Discord from "discord.js";
 import { memberHasOneRole } from "../modules/utils";
 import embeds from "../modules/embeds";
+import { getMemberPermissions } from "@modules/permissions";
 
 
 export default {
     execute: async (interaction: Discord.CommandInteraction, throwError: (title: string, desc?: string) => Discord.Message) => {
-        if (!(interaction.member instanceof Discord.GuildMember)) return throwError("Oops!", "Something went wrong. Please try again later.")
-        if (!memberHasOneRole(interaction.member, (process.env.ADMIN_ROLES ?? "").split(" "))) return throwError("Access denied", "You're not permitted to do that.")
+        if (!(interaction.member instanceof Discord.GuildMember)) return throwError("Error", "Something went wrong. Try again later.")
+        if (!(await getMemberPermissions(interaction.member)).includes("reset")) return throwError("Error", "You're not permitted to use that.")
 
         await interaction.deferReply({ ephemeral: true })
 

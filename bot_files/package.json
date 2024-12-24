@@ -5,18 +5,21 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc --build",
+    "build": "tsc --build && tsc-alias",
     "start": "node ."
   },
   "keywords": [],
   "author": "itsme",
   "license": "ISC",
   "dependencies": {
+    "@types/uuid": "^10.0.0",
     "axios": "^1.7.2",
     "colors": "^1.4.0",
     "discord.js": "^14.11.0",
     "dotenv": "^16.3.1",
-    "typescript": "^5.2.2"
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.2.2",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",

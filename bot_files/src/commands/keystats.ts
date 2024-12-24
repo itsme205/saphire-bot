@@ -3,11 +3,13 @@ import Discord from "discord.js";
 import { APIActionKeys } from "../config/api";
 import embeds from "../modules/embeds";
 import { StringsList } from "../modules/list";
+import { getMemberPermissions } from "@modules/permissions";
 
 
 export default {
     execute: async (interaction: Discord.CommandInteraction, throwError: (title: string, desc?: string) => Discord.Message) => {
-        if (!(process.env.OWNER_IDS ?? "").split(" ").includes(interaction.user.id)) return throwError("Error", "You're not permitted to use that.")
+        if (!(interaction.member instanceof Discord.GuildMember)) return throwError("Error", "Something went wrong. Try again later.")
+        if (!(await getMemberPermissions(interaction.member)).includes("keystats")) return throwError("Error", "You're not permitted to use that.")
         await interaction.deferReply({ ephemeral: true })
 
         var res: AxiosResponse;

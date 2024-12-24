@@ -1,5 +1,5 @@
 import Handler_Client from "./classes/default/Handler_Client"
-import DataManagerClass from "./modules/data_manager/Manager"
+import { DataManager } from "@modules/data_manager/Manager"
 
 interface CommandInterface {
     name: string,
@@ -9,6 +9,7 @@ interface CommandInterface {
 
 declare global {
     var client: Handler_Client
+    var dataManager: DataManager;
     var interfaces: {
         Command: CommandInterface
     }

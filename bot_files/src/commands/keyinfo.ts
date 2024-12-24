@@ -3,6 +3,7 @@ import Discord from "discord.js";
 import { APIActionKeys } from "../config/api";
 import embeds from "../modules/embeds";
 import { memberHasOneRole } from "../modules/utils";
+import { getMemberPermissions } from "@modules/permissions";
 
 function replaceEmptyString(string: string, replacer?: string): string {
     if ((typeof string === "string" && string.length > 0) || (typeof string === "number")) return string.toString()
@@ -12,9 +13,8 @@ function replaceEmptyString(string: string, replacer?: string): string {
 
 export default {
     execute: async (interaction: Discord.CommandInteraction, throwError: (title: string, desc?: string) => Discord.Message) => {
-        if (!(interaction.member instanceof Discord.GuildMember)) return throwError("Error", "Something went wrong. Please try again later.")
-        if (!(process.env.OWNER_IDS ?? "").split(" ").includes(interaction.user.id)
-            && !memberHasOneRole(interaction.member, (process.env.ADMIN_ROLES ?? "").split(" "))) return throwError("Error", "You're not permitted to use that.")
+        if (!(interaction.member instanceof Discord.GuildMember)) return throwError("Error", "Something went wrong. Try again later.")
+        if (!(await getMemberPermissions(interaction.member)).includes("keyinfo")) return throwError("Error", "You're not permitted to use that.")
         await interaction.deferReply({ ephemeral: true })
 
         var res;
