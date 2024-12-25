@@ -2,7 +2,6 @@ import axios from "axios";
 import Discord from "discord.js";
 import { APIActionKeys } from "../config/api";
 import embeds from "../modules/embeds";
-import { memberHasOneRole } from "../modules/utils";
 import { getMemberPermissions } from "@modules/permissions";
 
 const statusCodes: {
